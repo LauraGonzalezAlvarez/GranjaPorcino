@@ -1,0 +1,56 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+create database if not exists `GranjaPorcino`;
+
+use `GranjaPorcino`;
+
+CREATE TABLE IF NOT EXISTS `Cliente` (
+  `Cedula` int(11) NOT NULL,
+  `Nombres` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
+  `Apellidos` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
+  `Direccion` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `Telefono` int(10) NOT NULL    
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+
+CREATE TABLE IF NOT EXISTS `Porcino` (
+  `Id` int(10) NOT NULL, 
+  `Raza` tinyint(1) NOT NULL,
+  `Edad` int(2) NOT NULL,
+  `Peso` double NOT NULL,
+  `Descripcion` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `Usuario_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+CREATE TABLE IF NOT EXISTS `InformacionDieta`(
+  `Codigo` int(10) NOT NULL,   
+  `Dosis`int(5) NOT NULL,  
+  `Descripcion` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `InformacionDieta_porcino` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+
+--
+ALTER TABLE `Cliente`
+ADD PRIMARY KEY (`Cedula`);
+
+ALTER TABLE `Porcino`
+ADD PRIMARY KEY (`Id`);
+ 
+ ALTER TABLE `Porcino` 
+ ADD CONSTRAINT `Porci`  FOREIGN KEY (`Usuario_id`) REFERENCES `Cliente` (`Cedula`) ON UPDATE CASCADE;
+
+ALTER TABLE `InformacionDieta`
+ADD PRIMARY KEY (`Codigo`);
+ 
+ ALTER TABLE `InformacionDieta` 
+ ADD CONSTRAINT `InfoDieta`  FOREIGN KEY (`InformacionDieta_porcino`) REFERENCES `Porcino` (`Id`) ON UPDATE CASCADE;
+
+
+INSERT INTO `cliente` (`Cedula`, `Nombres`, `Apellidos`, `Direccion`, `Telefono`) VALUES ('1038546244', 'Sofia Daniela', 'Nieto Perez', 'Cra 34 # 78-98', '8343557');
+INSERT INTO `cliente` (`Cedula`, `Nombres`, `Apellidos`, `Direccion`, `Telefono`) VALUES ('3245345', 'Camila', 'Pereañez Saldarriaga', 'Cra 34 # 78-98', '8377377');
+INSERT INTO `cliente` (`Cedula`, `Nombres`, `Apellidos`, `Direccion`, `Telefono`) VALUES ('23452345', 'Andres', 'Santiago Muñoz', 'Cra 34 # 78-98', '8399377');
+INSERT INTO `cliente` (`Cedula`, `Nombres`, `Apellidos`, `Direccion`, `Telefono`) VALUES ('696897833', 'Nicolas', 'Valderrama Carmona', 'Cra 38 # 78-08', '83430077');
+INSERT INTO `cliente` (`Cedula`, `Nombres`, `Apellidos`, `Direccion`, `Telefono`) VALUES ('1345345623', 'Monica', 'Alvarez Castrillos', 'Cra 54 # 70-28', '85543377');
+INSERT INTO `cliente` (`Cedula`, `Nombres`, `Apellidos`, `Direccion`, `Telefono`) VALUES ('6734523423', 'Santiago', 'Belandia Carmona', 'Cra 14 # 56-98', '8333377');
